@@ -1,2 +1,2 @@
 # duck-clone
-butt zone
+hello this is a applied computer science project
