@@ -1,6 +1,7 @@
 package brain_simulator.video;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,15 @@ public class Panel extends JPanel {
 
     public Panel(){
 
+    }
+
+    public void paint(Graphics g){
+        Graphics2D g2 = (Graphics2D)g;
+        super.paint(g2);
+
+        //run logic
+
+        repaint();
     }
 
 
