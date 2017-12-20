@@ -11,20 +11,32 @@ import java.util.Map;
  */
 public class Phrase {
 
-    private String phrase;
+    private brain_simulator.logic.Phrase phrase;
 
     private int x, y;
 
     private double scalex, scaley;
 
-    public Phrase(String p){
+    private int life;
+
+    public Phrase(brain_simulator.logic.Phrase p){
         phrase = p;
+        life = 0;
     }
 
     public void draw(Graphics2D g2){
         g2.setFont(FontPicker.getRandomFont());
-        g2.drawString(phrase, x, y);
+        g2.drawString(phrase.toString(), x, y);
         g2.scale(scalex, scaley);
+        life++;
+
     }
 
+    public void setPhrase(brain_simulator.logic.Phrase phrase){
+        this.phrase = phrase;
+    }
+
+    public int getLife() {
+        return life;
+    }
 }
