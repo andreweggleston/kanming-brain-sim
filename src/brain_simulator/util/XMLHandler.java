@@ -2,7 +2,7 @@ package brain_simulator.util;
 
 import brain_simulator.logic.Phrase;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -14,14 +14,29 @@ public class XMLHandler {
 
     private static File xml;
 
-    public static File setFile(File xmlFile){
+    public static void setFile(File xmlFile){
         xml = xmlFile;
     }
 
     public static ArrayList<Phrase> interpret(){
 
+        ArrayList<Phrase> phrases = new ArrayList<>();
+        try {
+            InputStream is = new FileInputStream(xml);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            br.readLine();
+            String line = br.readLine();
+            while (!line.contains("phrases")){
+                phrases.add(new Phrase(line.trim().substring(8, line.length()-13)));
+                line = br.readLine();
+            }
+            br.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return
+        return phrases;
     }
 
     public static Phrase pickRandomPhrase(){

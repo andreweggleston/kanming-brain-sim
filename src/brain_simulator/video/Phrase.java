@@ -19,24 +19,28 @@ public class Phrase {
 
     private int life;
 
-    public Phrase(brain_simulator.logic.Phrase p){
+    public Phrase(brain_simulator.logic.Phrase p) {
         phrase = p;
         life = 0;
     }
 
-    public void draw(Graphics2D g2){
-        g2.setFont(FontPicker.getRandomFont());
-        g2.drawString(phrase.toString(), x, y);
+    public void draw(Graphics2D g2) {
+//        g2.setFont(FontPicker.getRandomFont());
+        g2.drawString(phrase.toString(), 350, 350);
         g2.scale(scalex, scaley);
         life++;
 
     }
 
-    public void setPhrase(brain_simulator.logic.Phrase phrase){
+    public void setPhrase(brain_simulator.logic.Phrase phrase) {
         this.phrase = phrase;
     }
 
     public int getLife() {
         return life;
+    }
+
+    public void resetLife() {
+        life = 0;
     }
 }

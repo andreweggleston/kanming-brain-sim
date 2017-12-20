@@ -37,6 +37,7 @@ public class Panel extends JPanel {
 
         Timer timer = new Timer(1000 / 24, e -> {
             time = System.currentTimeMillis()-startTime;
+            repaint();
         });
 
         timer.start();
@@ -70,6 +71,7 @@ public class Panel extends JPanel {
 
         if (currentPhrase.getLife() > 120){
             game.updatePhrase();
+            currentPhrase.resetLife();
         }
 
         currentPhrase.setPhrase(game.getCurrentPhrase());
@@ -81,7 +83,7 @@ public class Panel extends JPanel {
 
         //run logic
 
-        repaint();
+//        repaint();
     }
 
 
