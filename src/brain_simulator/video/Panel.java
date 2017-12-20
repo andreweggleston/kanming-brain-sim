@@ -13,6 +13,7 @@ public class Panel extends JPanel {
 
     public Panel(){
 
+
     }
 
     public void paint(Graphics g){
