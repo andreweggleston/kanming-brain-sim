@@ -27,7 +27,7 @@ public class XMLHandler {
             br.readLine();
             String line = br.readLine();
             while (!line.contains("phrases")){
-                phrases.add(new Phrase(line.trim().substring(8, line.length()-13)));
+                phrases.add(new Phrase(line.trim().substring(8, line.length()-13).replace("’", "'")));
                 line = br.readLine();
             }
             br.close();

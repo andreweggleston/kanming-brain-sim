@@ -8,19 +8,30 @@ public class Phrase {
     private boolean isComplete;
     private int length;
     private String phrase;
-    private boolean[] charMap;
+    private int[] charMap;
 
-    public Phrase(String phrase){
+    public Phrase(String phrase) {
         this.phrase = phrase;
-        charMap = new boolean[phrase.length()];
+        charMap = new int[phrase.length()];
     }
 
-    public char charAt(int index){
+    public char charAt(int index) {
         return phrase.charAt(index);
     }
 
-    public void setCharMap(int index, boolean val){
+    public void setCharMap(int index, int val) {
         charMap[index] = val;
+    }
+
+    public int getCharMapAt(int index) {
+        return charMap[index];
+    }
+
+    public boolean isComplete() {
+        for (int i : charMap) {
+            if (i != 2) return false;
+        }
+        return true;
     }
 
     @Override

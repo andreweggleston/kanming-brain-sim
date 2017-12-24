@@ -16,29 +16,61 @@ public class Game {
 
     private ArrayList<Phrase> phrases;
 
-    public Game(){
+    public Game() {
         XMLHandler.setFile(new File("res" + File.separator + "phrases.xml"));
         updatePhrase();
     }
 
-    public void updatePhrase(){
+    public void updatePhrase() {
         Phrase temp = XMLHandler.pickRandomPhrase();
         if (temp == currentPhrase) updatePhrase();
         else currentPhrase = temp;
+        currentIndex = 0;
     }
 
-    public boolean testLetter(char c){
-        if(currentPhrase.charAt(currentIndex)==c){
-            currentPhrase.setCharMap(currentIndex, true);
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public boolean testLetter(char c) {
+
+        if ((int) c == 8) { //backspace
+            if (currentIndex != 0) //dont go outside range here either
+                currentIndex--; //undo the previous currentIndex++ so we're in the range of the phrase
+            currentPhrase.setCharMap(currentIndex, 0);
+            debug();
+            return false;
+        }
+
+
+        if (currentPhrase.charAt(currentIndex) == c) {
+            currentPhrase.setCharMap(currentIndex, 2); //correct
+            currentIndex++;
+            debug();
             return true;
         } else {
-            currentPhrase.setCharMap(currentIndex, false);
+            currentPhrase.setCharMap(currentIndex, 1); //incorrect
+            currentIndex++;
+            debug();
         }
         return false;
     }
 
-    public Phrase getCurrentPhrase(){
+    public Phrase getCurrentPhrase() {
         return currentPhrase;
+    }
+
+    public void debug() {
+        for (int i = 0; i < currentPhrase.toString().length(); i++) {
+            System.out.print(currentPhrase.charAt(i) + " ");
+        }
+        System.out.println();
+
+        for (int i = 0; i < currentPhrase.toString().length(); i++) {
+            System.out.print(currentPhrase.getCharMapAt(i) + " ");
+        }
+        System.out.println();
+
     }
 
 

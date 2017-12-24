@@ -26,6 +26,10 @@ public class Panel extends JPanel {
     private long time;
     private long startTime;
 
+    int phraseLife;
+    int pointDrainer;
+
+    int points;
 
 
     public Panel() {
@@ -35,8 +39,9 @@ public class Panel extends JPanel {
 
         currentPhrase = new Phrase(game.getCurrentPhrase());
 
+
         Timer timer = new Timer(1000 / 24, e -> {
-            time = System.currentTimeMillis()-startTime;
+            time = System.currentTimeMillis() - startTime;
             repaint();
         });
 
@@ -45,9 +50,8 @@ public class Panel extends JPanel {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (level == 1){
-                    currentLetter = e;
-                }
+                currentLetter = e;
+                game.testLetter(e.getKeyChar());
             }
 
             @Override
@@ -68,22 +72,33 @@ public class Panel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         super.paint(g2);
 
+        if (pointDrainer % 25 == 0 && points > 10) {
+            pointDrainer = 1;
+            points--;
+        }
+        pointDrainer++;
 
-        if (currentPhrase.getLife() > 120){
+        if (game.getCurrentPhrase().getCharMapAt(game.getCurrentPhrase().toString().length() - 1) == 2) {
+            if (currentPhrase.isComplete()) {
+                System.out.println("beaned");
+                points = points + game.getCurrentPhrase().toString().length() * 2;
+                game.updatePhrase();
+                currentPhrase.resetLife();
+            }
+        }
+
+        if (currentPhrase.getLife() > 168) {
             game.updatePhrase();
             currentPhrase.resetLife();
         }
 
         currentPhrase.setPhrase(game.getCurrentPhrase());
 
+        g2.drawString(Integer.toString(points), 10, 10);
 
         currentPhrase.draw(g2);
 
 
-
-        //run logic
-
-//        repaint();
     }
 
 
