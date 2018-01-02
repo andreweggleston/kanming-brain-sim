@@ -72,6 +72,11 @@ public class Panel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         super.paint(g2);
 
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
         if (pointDrainer % 25 == 0 && points > 10) {
             pointDrainer = 1;
             points--;
