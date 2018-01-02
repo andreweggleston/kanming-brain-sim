@@ -11,20 +11,63 @@ import java.util.Map;
  */
 public class Phrase {
 
-    private String phrase;
+    private brain_simulator.logic.Phrase phrase;
 
     private int x, y;
 
     private double scalex, scaley;
 
-    public Phrase(String p){
+    private int life;
+
+    public Phrase(brain_simulator.logic.Phrase p) {
         phrase = p;
+        life = 0;
+
     }
 
-    public void draw(Graphics2D g2){
-        g2.setFont(FontPicker.getRandomFont());
-        g2.drawString(phrase, x, y);
+    public void draw(Graphics2D g2) {
+//        g2.setFont(FontPicker.getRandomFont());
+        for (int i = 0; i < phrase.toString().length(); i++) {
+
+            if (String.valueOf(phrase.toString().charAt(i)).equals(" ")) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+                if (phrase.getCharMapAt(i) == 2) {
+                    g2.setColor(new Color(54, 172, 63)); //this is green
+                    g2.fillRect(320 + (i * 10), 338, 8, 13);
+                } else if (phrase.getCharMapAt(i) == 1) {
+                    g2.setColor(new Color(172, 21, 25)); //this is red
+                    g2.fillRect(320 + (i * 10), 338, 8, 15);
+                }
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            } else if (phrase.getCharMapAt(i) == 2) {
+                g2.setColor(new Color(54, 172, 63));
+                g2.drawString(String.valueOf(phrase.toString().charAt(i)), 320 + (i * 10), 350);
+            } else if (phrase.getCharMapAt(i) == 1) {
+                g2.setColor(new Color(172, 21, 25));
+                g2.drawString(String.valueOf(phrase.toString().charAt(i)), 320 + (i * 10), 350);
+            } else {
+                g2.setColor(new Color(0, 0, 0));
+                g2.drawString(String.valueOf(phrase.toString().charAt(i)), 320 + (i * 10), 350);
+            }
+        }
         g2.scale(scalex, scaley);
+        life++;
+
     }
 
+    public void setPhrase(brain_simulator.logic.Phrase phrase) {
+        this.phrase = phrase;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void resetLife() {
+        life = 0;
+    }
+
+    public boolean isComplete() {
+        return phrase.isComplete();
+    }
 }
