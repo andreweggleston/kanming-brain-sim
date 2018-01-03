@@ -101,8 +101,8 @@ public class Panel extends JPanel {
 
         g2.drawString(Integer.toString(points), 10, 10);
 
-        currentPhrase.draw(g2);
 
+        currentPhrase.draw(g2, getWidth()/2 - currentPhrase.toString().length()*13/2, 350);
 
     }
 
